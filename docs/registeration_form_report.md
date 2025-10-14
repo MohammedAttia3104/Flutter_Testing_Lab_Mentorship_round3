@@ -1,16 +1,19 @@
-# Registration Form Report
-
-## 🔍 Overview
+### 🔍 Registration Form Report Overview
 
 This document overlays the issues found in the registration form implementation. It provides a
 detailed analysis of the problems, their causes, and potential solutions.
 
-## Issues Identified
+## 🚨 Issues Identified
 
 1. **Lack of Input Validation**: The registration form does not validate user inputs, leading to
    potential
    security vulnerabilities and data integrity issues.
-2.
+2. **Missing Password Strength Check**: There is no mechanism to ensure that passwords meet
+   minimum strength requirements.
+3. **No Form Validation Before Submission**: The form can be submitted without validating the
+   fields, allowing empty or invalid data to be processed.
+4. **Absence of Tests**: There are no unit or widget tests to verify the functionality of the form
+   and its validation logic.
 
 | ID | Issue Description                                         | Severity | Status |
 |----|-----------------------------------------------------------|----------|--------|
@@ -19,29 +22,24 @@ detailed analysis of the problems, their causes, and potential solutions.
 | 3  | Form submits successfully with empty/invalid fields       | Critical | Fixed  |
 | 4  | No widget or unit tests for validation                    | Medium   | Fixed  |
 
-### 1️⃣ Invalid Email Validation
+## ✅ Solution
 
-- **Cause:** Weak or missing regex pattern in `validateEmail`.
-- **Impact:** Users could register with incorrect email formats.
-- **Evidence:**  
-  Input: `"a@"` → Result: Accepted ✅  
-  Expected: Rejected ❌
+To address the identified issues, the following solutions were implemented:
 
-### 2️⃣ Missing Password Strength Check
+1. **Input Validation**: Implemented validation logic for email and password fields to ensure
+   correct formats and strength.
+2. **Password Strength Check**: Added a password strength checker to enforce minimum requirements.
+3. **Form Validation**: Ensured that the form cannot be submitted unless all fields are valid.
+4. **Testing**: Created unit and widget tests to verify the functionality of the form and its
+   validation logic.
 
-- **Cause:** Password field only checked for non-empty input.
-- **Impact:** Weak passwords could be accepted (security risk).
-- **Evidence:**  
-  Input: `"1234"` → Accepted ✅  
-  Expected: Should require uppercase, number, special char ❌
+## 🧪 Tests Summary
 
-### 3️⃣ Missing Form Validation Before Submission
+A comprehensive suite of tests was created to ensure the robustness of the registration form. The
+tests cover various scenarios, including valid and invalid inputs, password strength checks, and
+form submission behavior.
 
-- **Cause:** No `_formKey.currentState!.validate()` call before submit.
-- **Impact:** Empty form could be submitted.
-- **Evidence:** Console log showed "Form submitted" even when fields were blank.
-
-### 4️⃣ Missing Tests
-
-- **Cause:** No coverage for validation logic or form behavior.
-- **Impact:** Bugs went unnoticed during development.
+| Type         | Description                                 | Status   |
+|--------------|---------------------------------------------|----------|
+| Unit Tests   | Validate text form fields validation logic  | ✅ Passed |
+| Widget Tests | Check form errors and successful submission | ✅ Passed |
