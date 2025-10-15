@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_testing_lab/core/helpers/validation_helper.dart';
 
+import '../core/widgets/custom_elevated_button.dart';
+
 class UserRegistrationForm extends StatefulWidget {
   const UserRegistrationForm({super.key});
 
@@ -91,10 +93,12 @@ class _UserRegistrationFormState extends State<UserRegistrationForm> {
               ),
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
+            CustomElevatedButton(
               onPressed: _isLoading ? null : _submitForm,
               child: _isLoading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
                   : const Text('Register'),
             ),
             if (_message.isNotEmpty)
