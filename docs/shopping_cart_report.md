@@ -1,24 +1,50 @@
 ### Shopping Cart Report
 
-This report outlines the issues found in the current implementation of the shopping cart system,
-along with the tasks required to address these issues.
+This report reviews the current implementation of the shopping cart system, identifies key issues,
+and documents the solutions applied to address them.
 
-## Issues Found
+## Issues Identified
 
 | ID | Issue Description                                      | Severity | Status |
 |----|--------------------------------------------------------|----------|--------|
-| 1  | Duplicate items create new entries instead of updating | High     | Open   |
-| 2  | Incorrect discount calculations                        | High     | Open   |
-| 3  | Total amount calculation is inaccurate                 | Critical | Open   |
-| 4  | No unit tests for shopping cart logic                  | Medium   | Open   |
+| 1  | Duplicate items create new entries instead of updating | High     | Fixed  |
+| 2  | Incorrect discount calculations                        | High     | Fixed  |
+| 3  | Total amount calculation is inaccurate                 | Critical | Fixed  |
+| 4  | No unit tests for shopping cart logic                  | Medium   | Fixed  |
 
-## Tasks to Address Issues
+## Tasks and Solutions
 
-1. **Update Item Quantity Logic**: Modify the logic to update the quantity of existing items in the
-   cart instead of creating new entries when duplicate items are added.
-2. **Fix Discount Calculation**: Review and correct the discount calculation logic to ensure
-   accurate application of discounts.
-3. **Correct Total Amount Calculation**: Ensure that the total amount reflects the correct sum of
-   item prices, quantities, and applied discounts.
-4. **Implement Unit Tests**: Develop a suite of unit tests to cover the shopping cart functionality,
-   including adding items, updating quantities, applying discounts, and calculating totals.
+1. **Update Item Quantity Logic**
+    - **Problem:** Adding a duplicate item resulted in multiple entries rather than increasing the
+      quantity.
+    - **Solution:** Modified the `addItem` method to check for existing items and increment their
+      quantity instead of adding a new entry.
+
+2. **Fix Discount Calculation**
+    - **Problem:** Discounts were not applied correctly, leading to inaccurate totals.
+    - **Solution:** Reviewed and corrected the discount calculation logic in the cart state to
+      ensure accurate application per item and for the cart total.
+
+3. **Correct Total Amount Calculation**
+    - **Problem:** The total amount did not reflect the correct sum after discounts.
+    - **Solution:** Updated the total calculation to subtract the total discount from the subtotal,
+      ensuring the final amount is accurate.
+
+4. **Implement Unit Tests**
+    - **Problem:** The shopping cart logic was not covered by automated tests.
+    - **Solution:** Developed comprehensive unit tests for adding items, updating quantities,
+      applying discounts, removing items, and clearing the cart. All tests now pass, validating the
+      logic.
+
+## Summary of Improvements
+
+- The cart now updates item quantities instead of duplicating entries.
+- Discount and total calculations are accurate and reflect the correct values.
+- The codebase is more maintainable and readable.
+- Unit tests ensure ongoing reliability and support future changes.
+
+## Conclusion
+
+The shopping cart system is now robust, with correct handling of item quantities, discounts, and
+totals. Comprehensive unit tests provide confidence in the implementation and facilitate future
+enhancements. All previously identified issues have been resolved.
