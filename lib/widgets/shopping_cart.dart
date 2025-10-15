@@ -13,20 +13,7 @@ class ShoppingCart extends StatelessWidget {
       child: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           final cubit = context.read<CartCubit>();
-          final items = state.items;
-          final totalItems = items.fold<int>(
-            0,
-            (sum, item) => sum + item.quantity,
-          );
-          final subtotal = items.fold<double>(
-            0.0,
-            (sum, item) => sum + (item.price * item.quantity),
-          );
-          final totalDiscount = items.fold<double>(
-            0.0,
-            (sum, item) => sum + (item.price * item.quantity * item.discount),
-          );
-          final totalAmount = subtotal - totalDiscount;
+
           return Column(
             children: [
               Wrap(
@@ -79,7 +66,7 @@ class ShoppingCart extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total Items: $totalItems'),
+                        Text('Total Items: ${state.totalItems}'),
                         ElevatedButton(
                           onPressed: cubit.clearCart,
                           style: ElevatedButton.styleFrom(
@@ -90,13 +77,13 @@ class ShoppingCart extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text('Subtotal: \$${subtotal.toStringAsFixed(2)}'),
+                    Text('Subtotal: \$${state.subtotal.toStringAsFixed(2)}'),
                     Text(
-                      'Total Discount: \$${totalDiscount.toStringAsFixed(2)}',
+                      'Total Discount: \$${state.totalDiscount.toStringAsFixed(2)}',
                     ),
                     const Divider(),
                     Text(
-                      'Total Amount: \$${totalAmount.toStringAsFixed(2)}',
+                      'Total Amount: \$${state.totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -107,14 +94,14 @@ class ShoppingCart extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              items.isEmpty
+              state.items.isEmpty
                   ? const Center(child: Text('Cart is empty'))
                   : ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: items.length,
+                      itemCount: state.items.length,
                       itemBuilder: (context, index) {
-                        final item = items[index];
+                        final item = state.items[index];
                         final itemTotal =
                             item.price * item.quantity * (1 - item.discount);
 

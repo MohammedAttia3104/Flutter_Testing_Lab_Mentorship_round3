@@ -1,11 +1,13 @@
-class CartItem {
+import 'package:equatable/equatable.dart';
+
+class CartItem extends Equatable {
   final String id;
   final String name;
   final double price;
-  int quantity;
-  final double discount; // Discount percentage (0.0 to 1.0)
+  final int quantity;
+  final double discount;
 
-  CartItem({
+  const CartItem({
     required this.id,
     required this.name,
     required this.price,
@@ -28,4 +30,7 @@ class CartItem {
       discount: discount ?? this.discount,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, price, quantity, discount];
 }
