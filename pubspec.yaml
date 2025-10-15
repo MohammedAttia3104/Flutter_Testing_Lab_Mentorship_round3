@@ -33,8 +33,10 @@ dependencies:
 
   # Golden Testing check
   alchemist: ^0.13.0
-
-
+  # State Management
+  bloc: ^9.1.0
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
 
   cupertino_icons: ^1.0.8
 
